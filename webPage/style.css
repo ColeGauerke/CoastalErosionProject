@@ -1,0 +1,5 @@
+#map {
+    width: 33vw;   /* one-third of viewport width */
+    height: 33vw;  /* make it square */
+    border: 2px solid black; /* optional, just to see the edges */
+}
