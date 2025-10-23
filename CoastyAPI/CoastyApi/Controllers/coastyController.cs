@@ -3,6 +3,8 @@ using YamlDotNet.Core.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using CoastyApi.Models;
 using CoastyApi.Contracts;
+using Microsoft.EntityFrameworkCore;
+using CoastalErosion.Data;
 
 namespace coastAPI.Controllers;
 
@@ -12,17 +14,46 @@ public class CoastyController : ControllerBase
 {
     private readonly ILogger<CoastyController> _logger;
     private readonly ICoastyContract _coastyContract;
+    private readonly CoastalErosionDbContext _db;
 
-    public CoastyController(ILogger<CoastyController> logger, ICoastyContract coastyContract)
+    public CoastyController(ILogger<CoastyController> logger, ICoastyContract coastyContract, CoastalErosionDbContext db)
     {
         _logger = logger;
         _coastyContract = coastyContract;
+        _db = db;
     }
 
     [HttpGet("setup/Test")]
     public IActionResult Test()
     {
         return Ok();
+    }
+
+    [HttpGet("setup/TestDbConnection")]
+    public async Task<IActionResult> TestConnect()
+    {
+        try
+        {
+            var canConnect = await _db.Database.CanConnectAsync();
+            if (canConnect)
+            {
+                return Ok(new { 
+                    message = "Database connection successful!",
+                    connected = true 
+                });
+            }
+            else
+            {
+                return StatusCode(500, new { 
+                    message = "Cannot connect to database",
+                    connected = false 
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Invalid DB Connection: {ex.Message}");
+        }
     }
 
     [HttpPost("setup/GetUserTest")]
