@@ -159,3 +159,4 @@
 /Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/bin/Debug/net9.0/runtimes/win-x64/native/krb5_64.dll
 /Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/bin/Debug/net9.0/runtimes/win-x64/native/krbcc64.dll
 /Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/bin/Debug/net9.0/runtimes/win/lib/net8.0/System.Windows.Extensions.dll
+/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/bin/Debug/net9.0/MySqlConnector.dll

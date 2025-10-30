@@ -57,17 +57,32 @@ public class CoastyController : ControllerBase
     }
 
     [HttpPost("setup/GetUserTest")]
-    public async Task<IActionResult> TestUser (User user)
+    public async Task<IActionResult> TestUser(User user)
     {
         try
         {
             var userName = await _coastyContract.GetNameTest(user);
-            return Ok(new {UserName = userName});
+            return Ok(new { UserName = userName });
         }
         catch (Exception ex)
         {
-           Console.WriteLine($"Failure To Get User Name: {ex}");
-           return StatusCode(500,"Error Getting User Name");
+            Console.WriteLine($"Failure To Get User Name: {ex}");
+            return StatusCode(500, "Error Getting User Name");
+        }
+    }
+    
+    [HttpPost("GetVerifiedWaterLevels")]
+    public async Task<IActionResult> GetVerifiedWaterLvls (WaterLvlRequest user)
+    {
+        try
+        {
+            var userName = await _coastyContract.GetAvgWaterLevels(user);
+            return Ok(userName);
+        }
+        catch (Exception ex)
+        {
+           Console.WriteLine($"Failure To Get Verified Water Levls: {ex}");
+           return StatusCode(500,"Error Getting Verified Water Levls");
         }
     }
 }
