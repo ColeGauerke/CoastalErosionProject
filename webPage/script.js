@@ -20,22 +20,23 @@ const dataToSend = {
     period: "day" 
 };
 
-  fetch('https://localhost:7108/api/Coasty/GetVerifiedWaterLevels', {
-    method: 'POST', // Specify the HTTP method as POST
-    headers: {
-      'Content-Type': 'application/json' // Indicate the type of data being sent
-    },
-    body: JSON.stringify(dataToSend) // Convert the JavaScript object to a JSON string
+fetch('http://localhost:5073/api/Coasty/GetVerifiedWaterLevels', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    startDate: "1/1/15",
+    endDate: "1/30/15",
+    city: "Grand Isle",
+    state: "LA",
+    period: "day"
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('HTTP error! status: ${response.status}');
-    }
-    return response.json(); // Parse the JSON response from the server
-  })
-  .then(data => {
-    console.log('Success:', data); // Handle the successful response data
-  })
-  .catch(error => {
-    console.error('Error:', error); // Handle any errors during the request
-  });
+})
+.then(response => response.json())
+.then(data => {
+  console.log("Success:", data);
+  document.body.insertAdjacentHTML("beforeend", "<p style='color:green'>API Connected Successfully</p>");
+})
+.catch(error => {
+  console.error("Error:", error);
+  document.body.insertAdjacentHTML("beforeend", "<p style='color:red'>API Connection Failed</p>");
+});
