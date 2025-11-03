@@ -14,10 +14,10 @@ L.maptiler.maptilerLayer({
 
 const dataToSend = {
     startDate: "1/1/15",
-    endDate: "1/30/15",
+    endDate: "12/31/15",
     city: "Grand Isle", 
     state: "LA",
-    period: "day" 
+    period: "month" 
 };
 
   fetch('https://localhost:7108/api/Coasty/GetVerifiedWaterLevels', {
