@@ -13,29 +13,32 @@ L.maptiler.maptilerLayer({
 }).addTo(map);
 
 const dataToSend = {
-    startDate: "1/1/15",
-    endDate: "12/31/15",
-    city: "Grand Isle", 
+    startDate: "1/1/25",
+    endDate: "12/31/25",
+    city: "Grand Isle",
     state: "LA",
-    period: "month" 
+    period: "year"
 };
 
-  fetch('https://localhost:7108/api/Coasty/GetVerifiedWaterLevels', {
-    method: 'POST', // Specify the HTTP method as POST
+fetch('https://localhost:7108/api/Coasty/GetVerifiedWaterLevels', {
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/json' // Indicate the type of data being sent
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(dataToSend) // Convert the JavaScript object to a JSON string
-  })
-  .then(response => {
+    body: JSON.stringify(dataToSend)
+})
+.then(response => {
     if (!response.ok) {
       throw new Error('HTTP error! status: ${response.status}');
     }
-    return response.json(); // Parse the JSON response from the server
-  })
-  .then(data => {
-    console.log('Success:', data); // Handle the successful response data
-  })
-  .catch(error => {
-    console.error('Error:', error); // Handle any errors during the request
-  });
+    return response.json();
+})
+.then(data => {
+    console.log('Success:', data);
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+
+
+
