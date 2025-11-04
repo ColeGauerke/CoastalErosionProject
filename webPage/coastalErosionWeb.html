@@ -27,29 +27,28 @@
   <main>
     <section id="controls">
       <div class="control-group">
-        <label>Start Date:</label>
-        <input type="date" id="startDate" value="2015-01-01">
-      </div>
-      <div class="control-group">
-        <label>End Date:</label>
-        <input type="date" id="endDate" value="2015-01-30">
+        <label>Year</label>
+        <select id="year">
+          <option value="2015">2015</option>
+          <option value="2017">2017</option>
+          <option value="2024">2024</option>
+        </select>
       </div>
       <div class="control-group">
         <label>City:</label>
-        <input type="text" id="city" value="Grand Isle">
+        <select id="city">
+          <option value="Grand Isle">Grand Isle</option>
+          <option value="Port Fourchon">Port Fourchon</option>
+          <option value="New Orleans">New Orleans</option>
+        </select>
       </div>
       <div class="control-group">
         <label>State:</label>
-        <input type="text" id="state" value="LA">
-      </div>
-      <div class="control-group">
-        <label>Period:</label>
-        <select id="period">
-          <option value="day">Day</option>
-          <option value="month">Month</option>
-          <option value="year">Year</option>
+        <select id="state">
+          <option value="LA">LA</option>
         </select>
       </div>
+    
       <button id="predictBtn">Predict</button>
     </section>
 

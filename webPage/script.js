@@ -1,4 +1,7 @@
 function determineColorDanger(predictedWaterLevel) {
+    if (predictedWaterLevel == null) {
+      return 3;
+    }
     if (predictedWaterLevel >= .5) {
         return 0;
     }
@@ -26,42 +29,81 @@ L.maptiler.maptilerLayer({
     style: 'https://api.maptiler.com/maps/019a0e17-9b7e-7cb8-9bd2-51da8bf36ad8/style.json?key=' + key,
 }).addTo(map);
 
-const dataToSend = {
-    startDate: "1/1/15",
-    endDate: "1/30/15",
-    city: "Grand Isle", 
-    state: "LA",
-    period: "day" 
-};
 
-fetch('http://localhost:5073/api/Coasty/GetVerifiedWaterLevels', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-        startDate: "1/1/15",
-        endDate: "1/30/15",
-        city: "Grand Isle",
-        state: "LA",
-        period: "day"
-    })
-})
-.then(response => response.json())
-.then(data => {
-    console.log("Success:", data);
-    document.body.insertAdjacentHTML("beforeend", "<p style='color:green'>API Connected Successfully</p>");
-})
-.catch(error => {
-    console.error("Error:", error);
-    document.body.insertAdjacentHTML("beforeend", "<p style='color:red'>API Connection Failed</p>");
+let yearRange = document.getElementById('year').value;
+
+document.getElementById('year').addEventListener('change', function() {
+  yearRange = this.value;
+  console.log('Year changed to:', yearRange);
 });
 
-const colorArray = ['#64b5f6', '#ff9999', '#c41e3a'];
+let city = document.getElementById('city').value;
 
-grandIsleWaterLevel = -.6;
+document.getElementById('city').addEventListener('change', function() {
+  city = this.value;
+  console.log('City changed to:', city);
+});
 
-portFWaterLevel = -.4;
+let state = document.getElementById('state').value;
 
-newOrleansWaterLevel = .6;
+document.getElementById('state').addEventListener('change', function() {
+  state = this.value;
+  console.log('State changed to:', state);
+});
+
+let avg_ver_ft = null;
+
+document.getElementById("predictBtn").addEventListener('click', function() {
+
+    console.log("User wants a prediction");
+
+    console.log("1/1/" + yearRange.slice(-2));
+
+    const dataToSend = {
+      startDate: "1/1/" + yearRange.slice(-2),
+      endDate: "1/31/" + yearRange.slice(-2),
+      city: city, 
+      state: state,
+      period: "year" 
+    };
+    fetch('http://localhost:5073/api/Coasty/GetVerifiedWaterLevels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dataToSend)
+    })
+    .then(response => response.json())
+    .then(data => {
+        avg_ver_ft = data[0].avg_verified_ft;
+        console.log(avg_ver_ft);
+        console.log("Success:", data);
+
+        let layerToUpdate;
+
+        if (city == "Grand Isle") {
+            layerToUpdate = grandIsleLayer;
+        } else if (city == "Port Fourchon") {
+            layerToUpdate = portFLayer;
+        } else if (city == "New Orleans") {
+            layerToUpdate = newOrleansLayer;
+        }
+
+        const newColor = colorArray[determineColorDanger(avg_ver_ft)];
+        layerToUpdate.setStyle({
+            color: newColor,
+            fillColor: newColor,
+            fillOpacity: 0.25,
+            weight: 2
+        });
+
+        document.body.insertAdjacentHTML("beforeend", "<p style='color:green'>API Connected Successfully</p>");
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        document.body.insertAdjacentHTML("beforeend", "<p style='color:red'>API Connection Failed</p>");
+    });
+});
+
+const colorArray = ['#64b5f6', '#ff9999', '#c41e3a', '#999999'];
 
 
 const grandIsleGeoJson = {
@@ -133,14 +175,14 @@ const grandIsleGeoJson = {
   ]
 };
 
-const grandIsleColor = colorArray[determineColorDanger(grandIsleWaterLevel)];
+const grandIsleColor = colorArray[determineColorDanger(avg_ver_ft)];
 
 const grandIsleLayer = L.geoJSON(grandIsleGeoJson, {
     style: {
         color: grandIsleColor,
         fillColor: grandIsleColor,
         fillOpacity: 0.25,
-        weight: 3
+        weight: 2
     }
 }).addTo(map);
 
@@ -199,14 +241,14 @@ const portF = {
   ]
 };
 
-const portFColor = colorArray[determineColorDanger(portFWaterLevel)];
+const portFColor = colorArray[determineColorDanger(avg_ver_ft)];
 
 const portFLayer = L.geoJSON(portF, {
     style: {
         color: portFColor,
         fillColor: portFColor,
         fillOpacity: 0.25,
-        weight: 3
+        weight: 2
     }
 }).addTo(map);
 
@@ -325,7 +367,7 @@ const newOrleans = {
   ]
 };
 
-const newOrleansColor = colorArray[determineColorDanger(newOrleansWaterLevel)];
+const newOrleansColor = colorArray[determineColorDanger(avg_ver_ft)];
 
 
 const newOrleansLayer = L.geoJSON(newOrleans, {
@@ -333,7 +375,7 @@ const newOrleansLayer = L.geoJSON(newOrleans, {
         color: newOrleansColor,
         fillColor: newOrleansColor,
         fillOpacity: 0.25,
-        weight: 3
+        weight: 2
     }
 }).addTo(map);
 
