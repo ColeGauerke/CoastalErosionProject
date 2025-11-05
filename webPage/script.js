@@ -2,10 +2,10 @@ function determineColorDanger(predictedWaterLevel) {
     if (predictedWaterLevel == null) {
       return 3;
     }
-    if (predictedWaterLevel >= .5) {
+    if (predictedWaterLevel >= .05) {
         return 0;
     }
-    else if (predictedWaterLevel <= -.5) {
+    else if (predictedWaterLevel <= -.05) {
         return 2;
     }
     else {
@@ -57,8 +57,6 @@ document.getElementById("predictBtn").addEventListener('click', function() {
 
     console.log("User wants a prediction");
 
-    console.log("1/1/" + yearRange.slice(-2));
-
     const dataToSend = {
       startDate: "1/1/" + yearRange.slice(-2),
       endDate: "1/31/" + yearRange.slice(-2),
@@ -81,19 +79,36 @@ document.getElementById("predictBtn").addEventListener('click', function() {
 
         if (city == "Grand Isle") {
             layerToUpdate = grandIsleLayer;
+            map.setView([29.2366, -89.9873], 11);
         } else if (city == "Port Fourchon") {
             layerToUpdate = portFLayer;
+            map.setView([29.1056, -90.1944], 11);
         } else if (city == "New Orleans") {
             layerToUpdate = newOrleansLayer;
+            map.setView([29.9509, -90.0758], 11);
         }
 
-        const newColor = colorArray[determineColorDanger(avg_ver_ft)];
+        const danger = determineColorDanger(avg_ver_ft);
+
+        const newColor = colorArray[danger];
+
+        let risk = "moderate";
+
+        if (danger == 1) {
+            risk = "high";
+        }
+        else if (danger == 2) {
+            risk = "extreme";
+        }
+
         layerToUpdate.setStyle({
             color: newColor,
             fillColor: newColor,
             fillOpacity: 0.25,
             weight: 2
         });
+
+        layerToUpdate.bindPopup(city + ": " + avg_ver_ft.toFixed(2) + " feet above sea level. This is a " + risk + " risk town");
 
         document.body.insertAdjacentHTML("beforeend", "<p style='color:green'>API Connected Successfully</p>");
     })
