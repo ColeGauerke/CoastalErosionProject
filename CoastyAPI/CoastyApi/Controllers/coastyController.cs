@@ -70,9 +70,9 @@ public class CoastyController : ControllerBase
             return StatusCode(500, "Error Getting User Name");
         }
     }
-    
+
     [HttpPost("GetVerifiedWaterLevels")]
-    public async Task<IActionResult> GetVerifiedWaterLvls (WaterLvlRequest user)
+    public async Task<IActionResult> GetVerifiedWaterLvls(WaterLvlRequest user)
     {
         try
         {
@@ -81,8 +81,30 @@ public class CoastyController : ControllerBase
         }
         catch (Exception ex)
         {
-           Console.WriteLine($"Failure To Get Verified Water Levls: {ex}");
-           return StatusCode(500,"Error Getting Verified Water Levls");
+            Console.WriteLine($"Failure To Get Verified Water Levls: {ex}");
+            return StatusCode(500, "Error Getting Verified Water Levls");
+        }
+    }
+    
+    [HttpPost("GetRisks")]
+    public async Task<IActionResult> GetRisks (RiskRequest req)
+    {
+        try
+        {
+            int year = req.year;
+            if ((year % 5) != 0)
+            {
+                Console.WriteLine("Invalid Year Selection Must be multiple of 5");
+                return StatusCode(500, "Invalid Year Selection Must be multiple of 5");
+            }
+            string yearStr = year.ToString();
+            var userName = await _coastyContract.GetRisks(req.city,yearStr);
+            return Ok(userName);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failure To Get Risk Levls: {ex}");
+            return StatusCode(500, "Error Getting Risk Levls");
         }
     }
 }

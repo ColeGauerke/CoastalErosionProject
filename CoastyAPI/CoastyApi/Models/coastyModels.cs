@@ -15,4 +15,10 @@ namespace CoastyApi.Models
         public string state { get; set; }
         public string period { get; set; }
     }
+
+    public class RiskRequest
+    {
+        public string city { get; set; }
+        public int year { get; set; }
+    }
 }
