@@ -25,7 +25,24 @@ namespace CoastyApi.Models
     public class NewsRequest
     {
         public bool everything { get; set; }
-        public string keyword1 { get; set; }
-        public string keyword2 { get; set; }
+        public string keyword { get; set; }
+        public string area { get; set; }
+        public DateTime searchDate { get; set; }
+    }
+
+    public class NewsArticle
+    {
+        public string? name { get; set; }
+        public string? author { get; set; }
+        public string? title { get; set; }
+        public string? description { get; set; }
+        public string url { get; set; }
+        public DateTime? publishDate { get; set; }
+    }
+
+    public class NewsReportResult
+    {
+        public int totalResults { get; set; }
+        public List<NewsArticle> articles { get; set; }
     }
 }

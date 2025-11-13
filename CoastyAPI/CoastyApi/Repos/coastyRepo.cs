@@ -11,6 +11,7 @@ using NewsAPI;
 using NewsAPI.Models;
 using NewsAPI.Constants;
 using System;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 
 namespace CoastyApi.Repos
@@ -110,19 +111,35 @@ namespace CoastyApi.Repos
             return results;
         }
         
-        public async Task<object> GetNews (NewsRequest request)
+        public async Task<NewsReportResult> GetNews (NewsRequest req)
         {
             string apiKey = "370059aab17b495a9ff950dbc7e68589";
             var newsApiClient = new NewsApiClient(apiKey);
             Console.WriteLine("Returning all results");
+            string keywords = req.keyword + " " + req.area;
             var articleResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
             {
-                Q = "Coastal Erosion",
+                Q = keywords,
                 SortBy = SortBys.PublishedAt,
                 Language = Languages.EN,
-                From = new DateTime(2025, 11, 01)
+                From = req.searchDate,
             });
-            return articleResponse;
+            List<NewsArticle> articlesList = new List<NewsArticle>();
+            foreach (var article in articleResponse.Articles)
+            {
+                NewsArticle temp = new NewsArticle();
+                temp.name = article.Source.Name;
+                temp.author = article.Author;
+                temp.title = article.Title;
+                temp.description = article.Description;
+                temp.url = article.Url;
+                temp.publishDate = article.PublishedAt;
+                articlesList.Add(temp);
+            }
+            NewsReportResult result = new NewsReportResult();
+            result.articles = articlesList;
+            result.totalResults = articleResponse.TotalResults;
+            return result;
         }
     }
 }
