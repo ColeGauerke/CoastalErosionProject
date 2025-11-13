@@ -870,6 +870,18 @@
           }
         }
       },
+      "NewsAPI/0.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/portable45-net45+win8+wpa81/NewsAPI.dll": {}
+        },
+        "runtime": {
+          "lib/portable45-net45+win8+wpa81/NewsAPI.dll": {}
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
@@ -3116,6 +3128,18 @@
         "namotion.reflection.nuspec"
       ]
     },
+    "NewsAPI/0.7.0": {
+      "sha512": "ZKJCjE/8M41hDHMHvd6f+dejHBaobOuw+Erk9miqcwlixiZ8neRXawR62Fq7rZcBUD/drT26OhvgSa8t6woULg==",
+      "type": "package",
+      "path": "newsapi/0.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/portable45-net45+win8+wpa81/NewsAPI.dll",
+        "newsapi.0.7.0.nupkg.sha512",
+        "newsapi.nuspec"
+      ]
+    },
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -3933,7 +3957,8 @@
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.10",
       "MySql.EntityFrameworkCore >= 9.0.9",
       "MySqlConnector >= 2.4.0",
-      "NSwag.AspNetCore >= 14.6.1"
+      "NSwag.AspNetCore >= 14.6.1",
+      "NewsAPI >= 0.7.0"
     ]
   },
   "packageFolders": {
@@ -4014,6 +4039,10 @@
           "NSwag.AspNetCore": {
             "target": "Package",
             "version": "[14.6.1, )"
+          },
+          "NewsAPI": {
+            "target": "Package",
+            "version": "[0.7.0, )"
           }
         },
         "imports": [
@@ -4038,5 +4067,17 @@
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NewsAPI 0.7.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0'. This package may not be fully compatible with your project.",
+      "libraryId": "NewsAPI",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }

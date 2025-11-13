@@ -20,6 +20,7 @@
     </PackageReference>
     <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="MySqlConnector" Version="2.4.0" />
+    <PackageReference Include="NewsAPI" Version="0.7.0" />
     <PackageReference Include="NSwag.AspNetCore" Version="14.6.1" />
   </ItemGroup>
 

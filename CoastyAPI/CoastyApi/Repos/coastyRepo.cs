@@ -7,6 +7,10 @@ using CoastalErosion.Data;
 using MySql.Data.MySqlClient;  
 using System.Data;
 using Microsoft.VisualBasic;
+using NewsAPI;
+using NewsAPI.Models;
+using NewsAPI.Constants;
+using System;
 
 
 namespace CoastyApi.Repos
@@ -69,7 +73,7 @@ namespace CoastyApi.Repos
 
             return results;
         }
-        
+
         public async Task<object> GetRisks(string city, string year)
         {
             var results = new List<Dictionary<string, object>>();
@@ -102,8 +106,23 @@ namespace CoastyApi.Repos
             {
                 await connection.CloseAsync();
             }
-            
+
             return results;
+        }
+        
+        public async Task<object> GetNews (NewsRequest request)
+        {
+            string apiKey = "370059aab17b495a9ff950dbc7e68589";
+            var newsApiClient = new NewsApiClient(apiKey);
+            Console.WriteLine("Returning all results");
+            var articleResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
+            {
+                Q = "Coastal Erosion",
+                SortBy = SortBys.PublishedAt,
+                Language = Languages.EN,
+                From = new DateTime(2025, 11, 01)
+            });
+            return articleResponse;
         }
     }
 }

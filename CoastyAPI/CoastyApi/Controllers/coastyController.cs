@@ -85,9 +85,9 @@ public class CoastyController : ControllerBase
             return StatusCode(500, "Error Getting Verified Water Levls");
         }
     }
-    
+
     [HttpPost("GetRisks")]
-    public async Task<IActionResult> GetRisks (RiskRequest req)
+    public async Task<IActionResult> GetRisks(RiskRequest req)
     {
         try
         {
@@ -98,13 +98,28 @@ public class CoastyController : ControllerBase
                 return StatusCode(500, "Invalid Year Selection Must be multiple of 5");
             }
             string yearStr = year.ToString();
-            var userName = await _coastyContract.GetRisks(req.city,yearStr);
+            var userName = await _coastyContract.GetRisks(req.city, yearStr);
             return Ok(userName);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Failure To Get Risk Levls: {ex}");
             return StatusCode(500, "Error Getting Risk Levls");
+        }
+    }
+    
+    [HttpPost("News/GetEverything")]
+    public async Task<IActionResult> GetAllNews (NewsRequest req)
+    {
+        try
+        {
+            var result = await _coastyContract.GetNews(req);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failure To Get Everything News: {ex}");
+            return StatusCode(500, "Error Getting Everything News");
         }
     }
 }

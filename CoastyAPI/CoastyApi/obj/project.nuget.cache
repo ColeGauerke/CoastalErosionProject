@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Gs9pZZA6H/M=",
+  "dgSpecHash": "DR7remmtRRU=",
   "success": true,
   "projectFilePath": "/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/CoastyApi.csproj",
   "expectedPackageFiles": [
@@ -43,6 +43,7 @@
     "/Users/colegauerkemacbook/.nuget/packages/mysql.entityframeworkcore/9.0.9/mysql.entityframeworkcore.9.0.9.nupkg.sha512",
     "/Users/colegauerkemacbook/.nuget/packages/mysqlconnector/2.4.0/mysqlconnector.2.4.0.nupkg.sha512",
     "/Users/colegauerkemacbook/.nuget/packages/namotion.reflection/3.4.3/namotion.reflection.3.4.3.nupkg.sha512",
+    "/Users/colegauerkemacbook/.nuget/packages/newsapi/0.7.0/newsapi.0.7.0.nupkg.sha512",
     "/Users/colegauerkemacbook/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/Users/colegauerkemacbook/.nuget/packages/njsonschema/11.5.1/njsonschema.11.5.1.nupkg.sha512",
     "/Users/colegauerkemacbook/.nuget/packages/njsonschema.annotations/11.5.1/njsonschema.annotations.11.5.1.nupkg.sha512",
@@ -75,5 +76,18 @@
     "/Users/colegauerkemacbook/.nuget/packages/yamldotnet/16.3.0/yamldotnet.16.3.0.nupkg.sha512",
     "/Users/colegauerkemacbook/.nuget/packages/zstdsharp.port/0.8.6/zstdsharp.port.0.8.6.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "Package 'NewsAPI 0.7.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0'. This package may not be fully compatible with your project.",
+      "projectPath": "/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/CoastyApi.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/CoastyApi.csproj",
+      "libraryId": "NewsAPI",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }

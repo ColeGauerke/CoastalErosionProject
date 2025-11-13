@@ -321,3 +321,4 @@
 /Users/macelevin/CoastalErosionProject/CoastyAPI/CoastyApi/obj/Debug/net9.0/CoastyApi.pdb
 /Users/macelevin/CoastalErosionProject/CoastyAPI/CoastyApi/obj/Debug/net9.0/CoastyApi.genruntimeconfig.cache
 /Users/macelevin/CoastalErosionProject/CoastyAPI/CoastyApi/obj/Debug/net9.0/ref/CoastyApi.dll
+/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/bin/Debug/net9.0/NewsAPI.dll

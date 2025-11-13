@@ -21,4 +21,11 @@ namespace CoastyApi.Models
         public string city { get; set; }
         public int year { get; set; }
     }
+
+    public class NewsRequest
+    {
+        public bool everything { get; set; }
+        public string keyword1 { get; set; }
+        public string keyword2 { get; set; }
+    }
 }

@@ -8,5 +8,6 @@ namespace CoastyApi.Contracts
         Task<string> GetNameTest(User user);
         Task<object> GetAvgWaterLevels(WaterLvlRequest request);
         Task<object> GetRisks(string city, string year);
+        Task<object> GetNews(NewsRequest request);
     }
 }
