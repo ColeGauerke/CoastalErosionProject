@@ -12,7 +12,7 @@ using NewsAPI.Models;
 using NewsAPI.Constants;
 using System;
 using Org.BouncyCastle.Asn1.Ocsp;
-
+using System.Collections.Generic;
 
 namespace CoastyApi.Repos
 {
@@ -50,8 +50,8 @@ namespace CoastyApi.Repos
                     command.Parameters.Add(new MySqlParameter("p_time_period", request.period ?? "day"));
                     command.Parameters.Add(new MySqlParameter("p_city", request.city ?? ""));
                     command.Parameters.Add(new MySqlParameter("p_state", request.state ?? ""));
-                    command.Parameters.Add(new MySqlParameter("p_start_date",string.IsNullOrEmpty(request.startDate) ? DBNull.Value : request.startDate));
-                    command.Parameters.Add(new MySqlParameter("p_end_date",string.IsNullOrEmpty(request.endDate) ? DBNull.Value : request.endDate));
+                    command.Parameters.Add(new MySqlParameter("p_start_date", string.IsNullOrEmpty(request.startDate) ? DBNull.Value : request.startDate));
+                    command.Parameters.Add(new MySqlParameter("p_end_date", string.IsNullOrEmpty(request.endDate) ? DBNull.Value : request.endDate));
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -74,6 +74,7 @@ namespace CoastyApi.Repos
 
             return results;
         }
+
 
         public async Task<object> GetRisks(string city, string year)
         {
@@ -110,8 +111,8 @@ namespace CoastyApi.Repos
 
             return results;
         }
-        
-        public async Task<NewsReportResult> GetNews (NewsRequest req)
+
+        public async Task<NewsReportResult> GetNews(NewsRequest req)
         {
             string apiKey = "370059aab17b495a9ff950dbc7e68589";
             var newsApiClient = new NewsApiClient(apiKey);
@@ -140,6 +141,32 @@ namespace CoastyApi.Repos
             result.articles = articlesList;
             result.totalResults = articleResponse.TotalResults;
             return result;
+        }
+         public async Task<EventReport> SaveEventReport(EventReportRequest request)
+        {
+            var entity = new EventReport
+            {
+                EventType = request.EventType,
+                Severity = request.Severity,
+                ObservedAt = request.ObservedAt,
+                LocationText = request.LocationText,
+                Description = request.Description,
+                ContactName = request.ContactName,
+                ContactEmail = request.ContactEmail
+            };
+
+            _db.EventReports.Add(entity);
+            await _db.SaveChangesAsync();
+
+            return entity;
+        }
+
+        public async Task<List<EventReport>> GetEventReports(int max = 100)
+        {
+            return await _db.EventReports
+                .OrderByDescending(r => r.ObservedAt)
+                .Take(max)
+                .ToListAsync();
         }
     }
 }

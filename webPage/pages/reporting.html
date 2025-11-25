@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coastal Erosion Reporting</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Report Flood / Natural Emergency</title>
+
+  
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    .page-wrap { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    .card { background:#fff; border-radius:12px; box-shadow:0 10px 24px rgba(0,0,0,.07); padding:20px; }
+    .title { font-size:1.6rem; font-weight:700; margin:0 0 10px; }
+    .subtitle { color:#555; margin:0 0 20px; }
+    .grid { display:grid; gap:14px; grid-template-columns:1fr; }
+    @media (min-width: 720px){ .grid-2 { grid-template-columns:1fr 1fr; } }
+    label { display:block; font-weight:600; margin-bottom:6px; }
+    input[type="text"],
+    input[type="email"],
+    input[type="datetime-local"],
+    select,
+    textarea {
+      width:100%; border:1px solid #ddd; border-radius:10px; padding:10px;
+      font:inherit; background:#fafafa;
+    }
+    textarea { min-height:110px; resize:vertical; }
+    .hint { font-size:.9rem; color:#666; margin-top:4px; }
+    .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .btn {
+      background:#0d6efd; color:#fff; border:none; border-radius:10px;
+      padding:10px 16px; font-weight:600; cursor:pointer; transition:.2s;
+    }
+    .btn:disabled { opacity:.6; cursor:not-allowed; }
+    .btn.secondary { background:#eee; color:#222; }
+    .note { font-size:.9rem; color:#444; }
+    .error { color:#b00020; margin-top:10px; }
+    .success { color:#0a7c2f; margin-top:10px; }
+    .pill {
+      display:inline-block; background:#eef6ff; color:#0d6efd; padding:6px 10px;
+      border-radius:999px; font-size:.85rem; margin:6px 0;
+    }
+    header { background:linear-gradient(135deg,#1f6feb,#3fa3ff); color:#fff; }
+
+  </style>
 </head>
+
 <body>
   <header>
     <ul id="NavBar">
@@ -13,10 +52,188 @@
       <li><a href="../coastalErosionWeb.html">Map Predictor</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="emergencyResources.html">Emergency Resources</a></li>
-      <li><a href="reporting.html">Report Event</a></li>
+      <li><a href="reporting.html" aria-current="page">Report Event</a></li>
+      <li><a href="reportsFeed.html">Community Reports</a></li>
+    </ul>
   </header>
-  <main>
-    <p1>Reporting Page</p1>
+
+  <main class="page-wrap">
+    <div class="card">
+      <h1 class="title">Report an Event</h1>
+      <p class="subtitle">Seen flooding, storm surge, erosion, or infrastructure damage? Share details below.</p>
+
+      <form id="reportForm" novalidate>
+        <div class="grid grid-2">
+          <div>
+            <label for="eventType">Event type *</label>
+            <select id="eventType" required>
+              <option value="">Select an event</option>
+              <option>Flooding</option>
+              <option>Storm Surge</option>
+              <option>Coastal Erosion</option>
+              <option>Road/Bridge Damage</option>
+              <option>High Tide / King Tide</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="severity">Severity *</label>
+            <select id="severity" required>
+              <option value="">Select severity</option>
+              <option>Low</option>
+              <option>Moderate</option>
+              <option>High</option>
+              <option>Life-Threatening</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="when">Date & time observed *</label>
+            <input id="when" type="datetime-local" required />
+          </div>
+
+          <div class="row">
+            <div style="flex:1 1 280px">
+              <label for="address">Location (address or nearest intersection) *</label>
+              <input id="address" type="text" placeholder="e.g., 123 Bay St, Grand Isle, LA" required />
+              <div class="hint">If exact address is unknown, describe the closest landmark/intersection.</div>
+            </div>
+            <button type="button" id="useLocationBtn" class="btn secondary" title="Use my current location">
+              Use my location
+            </button>
+          </div>
+
+          <div>
+            <label for="description">What happened? *</label>
+            <textarea id="description" placeholder="Briefly describe what you saw" required></textarea>
+          </div>
+
+          <div>
+            <label for="photo">Attach photo (optional)</label>
+            <input id="photo" type="file" accept="image/*" />
+            <div class="hint">Max size 5MB. Please avoid faces/identifying info.</div>
+          </div>
+
+          <div>
+            <label for="contactName">Your name (optional)</label>
+            <input id="contactName" type="text" placeholder="Name (optional)" />
+          </div>
+
+          <div>
+            <label for="contactEmail">Email (optional)</label>
+            <input id="contactEmail" type="email" placeholder="name@example.com" />
+          </div>
+        </div>
+
+        <p class="note pill">By submitting, you agree your report may be reviewed and mapped to improve response.</p>
+
+        <div class="row" style="margin-top:10px">
+          <label style="font-weight:500;">
+            <input id="consent" type="checkbox" required />
+            I confirm the information is accurate to the best of my knowledge. *
+          </label>
+        </div>
+
+        <div class="row" style="margin-top:14px">
+          <button type="submit" class="btn" id="submitBtn">Submit Report</button>
+          <button type="reset" class="btn secondary">Reset</button>
+        </div>
+
+        <div id="formMsg" aria-live="polite"></div>
+      </form>
+    </div>
   </main>
+
+  <script>
+    // Prefill date/time to now (local)
+    const whenInput = document.getElementById('when');
+    if (!whenInput.value) {
+      const now = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      const localISO = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      whenInput.value = localISO;
+    }
+  
+    // Geolocation helper
+    document.getElementById('useLocationBtn').addEventListener('click', () => {
+      const msg = document.getElementById('formMsg');
+      msg.textContent = '';
+      if (!navigator.geolocation) {
+        msg.innerHTML = '<p class="error">Geolocation not supported by your browser.</p>';
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const { latitude, longitude } = pos.coords;
+          document.getElementById('address').value =
+            `Lat ${latitude.toFixed(5)}, Lng ${longitude.toFixed(5)}`;
+        },
+        () => {
+          msg.innerHTML = '<p class="error">Unable to get your location. Please enter address manually.</p>';
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    });
+  
+    // Client-side validation & submit
+    const form = document.getElementById('reportForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const msg = document.getElementById('formMsg');
+  
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+  
+      // Basic validation
+      const requiredIds = ['eventType','severity','when','address','description','consent'];
+      for (const id of requiredIds) {
+        const el = document.getElementById(id);
+        if ((el.type === 'checkbox' && !el.checked) || (!el.value && el.type !== 'checkbox')) {
+          el.focus();
+          msg.innerHTML = '<p class="error">Please complete all required fields.</p>';
+          return;
+        }
+      }
+  
+      const payload = {
+        eventType: document.getElementById('eventType').value,
+        severity: document.getElementById('severity').value,
+        observedAt: new Date(document.getElementById('when').value).toISOString(),
+        locationText: document.getElementById('address').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        contactName: document.getElementById('contactName').value.trim() || null,
+        contactEmail: document.getElementById('contactEmail').value.trim() || null
+      };
+  
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+  
+      try {
+        const res = await fetch('http://localhost:5073/api/Coasty/ReportEvent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+  
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  
+        msg.innerHTML = '<p class="success">Thank you, your report was submitted.</p>';
+        form.reset();
+  
+        // restore default datetime
+        const now = new Date();
+        const pad = n => String(n).padStart(2,'0');
+        whenInput.value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      } catch (err) {
+        console.error('Submit error:', err);
+        msg.innerHTML = '<p class="error"> Could not submit right now. Your report was not saved.</p>';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Report';
+      }
+    });
+  </script>
+  
 </body>
 </html>
