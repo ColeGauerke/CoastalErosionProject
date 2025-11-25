@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CoastyApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64099de09591589596164230ef2ffe541f37152d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f07868246a977a32c7bd0a088e8ae3c350f8baff")]
 [assembly: System.Reflection.AssemblyProductAttribute("CoastyApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CoastyApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
