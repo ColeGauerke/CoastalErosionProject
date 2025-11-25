@@ -411,4 +411,55 @@
     padding: 0.8rem;
     font-size: 0.9rem;
   }
+  .emergency-page h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: #004b84; 
+  }
   
+
+  .em-card {
+    background: #ffffff;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #1e90ff; 
+  }
+  
+
+  .em-card h2 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: #005fa3;
+  }
+  
+
+  .em-card h3,
+  .em-card h4 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    color: #004b84;
+  }
+  
+  .em-card ul {
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .em-card li {
+    margin-bottom: 0.35rem;
+  }
+  
+  .em-card a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  
+  .em-card a:hover {
+    text-decoration: underline;
+  }
+  
+  .em-card small {
+    color: #555;
+  }
