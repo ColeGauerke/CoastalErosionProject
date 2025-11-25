@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using CoastyApi.Models;
 
 namespace CoastalErosion.Data
 {
@@ -6,7 +7,9 @@ namespace CoastalErosion.Data
     {
         public CoastalErosionDbContext(DbContextOptions<CoastalErosionDbContext> options) : base(options)
         {
-            
+
         }
+        public DbSet<EventReport> EventReports { get; set; }
+
     }
 }
