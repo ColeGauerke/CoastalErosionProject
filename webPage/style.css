@@ -533,7 +533,7 @@
     border-color: #04547f;
     padding: 16px; 
     flex: 1; 
-    min-height: 200px;
+    min-height: 250px;
   }
 
   .homeMenuBoxTitle {
@@ -553,134 +553,11 @@
     transition: background-color 0.3s ease;
   }
 
-
-/* News Page Styles */
-  #resultsCount {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
-    font-weight: 500;
-  }
-
-  #newsContainerCards {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  #newsCard {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #0066cc;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  #newsCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  #newsCardTitle {
-    font-size: 18px;
-    font-weight: 600;
-    color: #0066cc;
-    margin-bottom: 10px;
-    line-height: 1.4;
-  }
-
-  #newsCardTitle a {
-    text-decoration: none;
-    color: #0066cc;
-    cursor: pointer;
-  }
-
-  #newsCardTitle a:hover {
-    text-decoration: underline;
-  }
-
-  #newsCardDescription {
-    font-size: 14px;
-    color: #555;
+  .homeMenuIcon {
+    width: 80px; 
+    height: 80px;
+    margin:  auto; 
     margin-bottom: 12px;
-    line-height: 1.6;
-    font-style: italic;
-  }
-
-  #newsCardMeta {
-    display: flex;
-    gap: 20px;
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-  }
-
-  #newsCardMetaItem {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #newsCardMetaLabel {
-    font-weight: 600;
-    color: #666;
-  }
-
-  #newsCardButton {
-    display: inline-block;
-    background-color: #0066cc;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    transition: background-color 0.2s;
-    border: none;
-    cursor: pointer;
-  }
-
-  #newsCardButton:hover {
-    background-color: #0052a3;
-  }
-
-  #emptyState {
-    background: white;
-    padding: 60px 20px;
-    text-align: center;
-    border-radius: 8px;
-    color: #666;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  #emptyStateIcon {
-    font-size: 48px;
-    margin-bottom: 16px;
-  }
-
-  #emptyStateTitle {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-  }
-
-  @media (max-width: 768px) {
-    .news-card-meta {
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .news-card {
-      padding: 16px;
-    }
-
-    .news-card-title {
-      font-size: 16px;
-    }
-
-    .news-card-description {
-      font-size: 13px;
-    }
+    display: block;
+    object-fit: contain;  
   }
