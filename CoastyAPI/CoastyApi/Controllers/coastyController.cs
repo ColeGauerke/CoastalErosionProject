@@ -37,16 +37,18 @@ public class CoastyController : ControllerBase
             var canConnect = await _db.Database.CanConnectAsync();
             if (canConnect)
             {
-                return Ok(new { 
+                return Ok(new
+                {
                     message = "Database connection successful!",
-                    connected = true 
+                    connected = true
                 });
             }
             else
             {
-                return StatusCode(500, new { 
+                return StatusCode(500, new
+                {
                     message = "Cannot connect to database",
-                    connected = false 
+                    connected = false
                 });
             }
         }
@@ -107,9 +109,9 @@ public class CoastyController : ControllerBase
             return StatusCode(500, "Error Getting Risk Levls");
         }
     }
-    
+
     [HttpPost("News/GetEverything")]
-    public async Task<IActionResult> GetAllNews (NewsRequest req)
+    public async Task<IActionResult> GetAllNews(NewsRequest req)
     {
         try
         {
@@ -122,4 +124,44 @@ public class CoastyController : ControllerBase
             return StatusCode(500, "Error Getting Everything News");
         }
     }
+    [HttpPost("ReportEvent")]
+public async Task<IActionResult> ReportEvent([FromBody] EventReportRequest req)
+{
+    try
+    {
+        var entity = await _coastyContract.SaveEventReport(req);
+
+        _logger.LogInformation(
+            "New event report saved: {Id} {EventType} {Severity} at {ObservedAt} – {Location}",
+            entity.Id,
+            entity.EventType,
+            entity.Severity,
+            entity.ObservedAt,
+            entity.LocationText
+        );
+
+        return Ok(new { message = "Report received", success = true, id = entity.Id });
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Failed to save event report");
+        return StatusCode(500, "Error saving event report");
+    }
+}
+
+[HttpGet("GetReports")]
+public async Task<IActionResult> GetReports()
+{
+    try
+    {
+        var reports = await _coastyContract.GetEventReports();
+        return Ok(reports);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Failed to load event reports");
+        return StatusCode(500, "Error loading event reports");
+    }
+}
+
 }

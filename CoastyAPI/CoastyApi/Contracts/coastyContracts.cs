@@ -9,5 +9,7 @@ namespace CoastyApi.Contracts
         Task<object> GetAvgWaterLevels(WaterLvlRequest request);
         Task<object> GetRisks(string city, string year);
         Task<NewsReportResult> GetNews(NewsRequest request);
+        Task<EventReport> SaveEventReport(EventReportRequest req);
+        Task<List<EventReport>> GetEventReports(int max = 100);
     }
 }

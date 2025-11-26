@@ -3962,19 +3962,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/colegauerkemacbook/.nuget/packages/": {}
+    "/Users/macelevin/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/CoastyApi.csproj",
+      "projectUniqueName": "/Users/macelevin/CoastalErosionProject/CoastyAPI/CoastyApi/CoastyApi.csproj",
       "projectName": "CoastyApi",
-      "projectPath": "/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/CoastyApi.csproj",
-      "packagesPath": "/Users/colegauerkemacbook/.nuget/packages/",
-      "outputPath": "/Users/colegauerkemacbook/Desktop/fall2025Notes/CSC4330/CoastalErosionProject/CoastyAPI/CoastyApi/obj/",
+      "projectPath": "/Users/macelevin/CoastalErosionProject/CoastyAPI/CoastyApi/CoastyApi.csproj",
+      "packagesPath": "/Users/macelevin/.nuget/packages/",
+      "outputPath": "/Users/macelevin/CoastalErosionProject/CoastyAPI/CoastyApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/colegauerkemacbook/.nuget/NuGet/NuGet.Config"
+        "/Users/macelevin/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -4064,7 +4064,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
