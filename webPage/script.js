@@ -78,6 +78,7 @@ class CoastMap {
     year = null;
     city = null;
     state = null;
+	case = null;
 
 	constructor(mapElementId, apiKey) {
 		this.apiKey = apiKey;
@@ -86,6 +87,7 @@ class CoastMap {
 		this.year = document.getElementById('year').value;
 		this.city = document.getElementById('city').value;
 		this.state = document.getElementById('state').value;
+		this.case = document.getElementById('case').value;
 
 		this.initializeMap(mapElementId);
 		this.initializeRegion();
@@ -521,6 +523,11 @@ class CoastMap {
 			console.log('State changed to:', this.state);
 		});
 
+		document.getElementById('case').addEventListener('change', (e) => {
+			this.case = e.target.value;
+			console.log('Case changed to:', this.case);
+		});
+
 		document.getElementById('predictBtn').addEventListener('click', () => {
 			this.getPrediction();
 		});
@@ -548,8 +555,12 @@ class CoastMap {
 			const dangerLevel = data[0];
 
 			const region = this.region.get(this.city);
-			if (region != null) {
+			if (region != null && this.case == "Worst Case") {
 				region.updateStyle(dangerLevel[this.year + "_worst_case"].toFixed(3), dangerLevel[this.year + "_status"]);
+				region.focusOnMap(this.map);
+			}
+			else if (region != null && this.case == "Best Case") {
+				region.updateStyle(dangerLevel[this.year + "_water_level"].toFixed(3), dangerLevel[this.year + "_status"]);
 				region.focusOnMap(this.map);
 			}
 
