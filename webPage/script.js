@@ -46,6 +46,7 @@ class Region {
 	}
 
 	updateStyle(waterLevel, dangerLevel) {
+		this.waterLevel = waterLevel;
 		this.dangerLevel = dangerLevel;
 		const riskLevel = RiskLevels.determineRisk(dangerLevel);
 		const color = RiskLevels.getColor(riskLevel);
@@ -58,8 +59,8 @@ class Region {
 		});
 
 		let popupText;
-		if (dangerLevel !== null) {
-			popupText = this.name + ": " + waterLevel +  " feet above sea level. This is a " + dangerLevel + " risk town";
+		if (dangerLevel !== null && waterLevel !== null) {
+			popupText = this.name + ": " + this.waterLevel.toFixed(3) +  " feet above sea level. This is a " + dangerLevel + " risk town";
 		} else {
 			popupText = this.name;
 		}
@@ -556,11 +557,11 @@ class CoastMap {
 
 			const region = this.region.get(this.city);
 			if (region != null && this.case == "Worst Case") {
-				region.updateStyle(dangerLevel[this.year + "_worst_case"].toFixed(3), dangerLevel[this.year + "_status"]);
+				region.updateStyle((dangerLevel["elevation_ft"] - dangerLevel[this.year + "_worst_case"]), dangerLevel[this.year + "_status"]);
 				region.focusOnMap(this.map);
 			}
 			else if (region != null && this.case == "Best Case") {
-				region.updateStyle(dangerLevel[this.year + "_water_level"].toFixed(3), dangerLevel[this.year + "_status"]);
+				region.updateStyle((dangerLevel["elevation_ft"] - dangerLevel[this.year + "_water_level"]), dangerLevel[this.year + "_status"]);
 				region.focusOnMap(this.map);
 			}
 
