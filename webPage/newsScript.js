@@ -9,6 +9,30 @@ async function searchCoastalNews() {
   let area = `${city} ${state}`;
   console.log("Full Keywords: ", keywords);
   console.log("Date: ", date);
+  //validatig da entries
+  let isValid = true;
+  const inputs = [
+    { element: document.getElementById('NewsSearchInput'), value: keywords, name: 'keywords' },
+    { element: document.getElementById('NewsStateDD'), value: state, name: 'state' },
+    { element: document.getElementById('NewsCityDD'), value: city, name: 'city' },
+    { element: document.getElementById('NewsDatePicker'), value: date, name: 'date' }
+  ];
+  inputs.forEach(field => {
+    field.element.classList.remove('inputError');
+  });
+
+  inputs.forEach(field => {
+    if (!field.value || field.value === '') {
+      field.element.classList.add('inputError');
+      isValid = false;
+    }
+  });
+
+  if (!isValid) {
+    console.log("Missing Search Fields");
+    alert('Missing Search Fields Values');
+    return;
+  }
 
   const request = {
     "everything": true,
@@ -30,6 +54,7 @@ async function searchCoastalNews() {
     const data = await response.json()
     console.log("News Data: ", data);
     console.log("Articles: ", data.articles )
+    console.log("Number Of Articles = ", data.articles.length);
     displayResults(data.articles);
   } catch (error) {
     console.error('Error Getting News From API: ', error)
@@ -85,6 +110,7 @@ function displayResults(articles) {
       <a href="${article.url}" target="_blank" class="news-card-button">Read Full Article</a>
     `;
     mainContainer.appendChild(card);
+    //console.log(card);
   });
   container.appendChild(mainContainer);
 }

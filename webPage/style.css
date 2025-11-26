@@ -272,6 +272,11 @@
     background-color: #0052a3;
   }
 
+  .inputError {
+    border: 2px solid #ff0000 !important;
+    background-color: #ffb4b4 !important;
+  }
+
   #emptyState {
     background: white;
     padding: 60px 20px;
