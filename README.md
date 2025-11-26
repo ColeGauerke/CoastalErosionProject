@@ -10,4 +10,5 @@ To run:
   2. To build and launch use terminal command: dotnet run --launch-profile https
   3. Can be accessed by clicking into the localhost shown in your terminal and adding /swagger to the end of the URL
       -> 'https://localhost:7108/swagger'
+  4. Start up a live server from  the home.html file in vscode.
       
