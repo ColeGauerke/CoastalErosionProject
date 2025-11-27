@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coastal Erosion News</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../newsScript.js"></script>
+</head>
+<body>
+    <header id="NewsHeader">
+    <ul id="NavBar">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="../coastalErosionWeb.html">Map Predictor</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="emergencyResources.html">Emergency Resources</a></li>
+      <li><a href="reporting.html">Report Event</a></li>
+      <li><a href="reportsFeed.html">Community Reports</a></li>
+    </ul>
+    <div id="NewsPageHeader">
+      <h1 id="NewsTitle">Coastal Erosion News</h1>
+      <h6 id="NewsSubTitle">Search For Recent Coastal Erosion News In Your Area</h6>
+    </div>
+  </header>
+  <main id="NewsMain">
+    <section id="NewsSearchSection">
+      <div id="NewsSearchContainer">
+        <h2 id="NewsSearchLabel">Enter Coastal News Keywords, Select City, and Date</h2>
+        <div id="NewsSearchBox">
+          <input type="text" id="NewsSearchInput" placeholder="Eg. flooding, erosion, hurricanes, ...">
+          <select id="NewsStateDD">
+            <option>LA</option>
+          </select>
+          <select id="NewsCityDD">
+            <option value="Bayou Cane">Bayou Cane</option>
+            <option value="Chauvin">Chauvin</option>
+            <option value="Cocodrie">Cocodrie</option>
+            <option value="Cut Off">Cut Off</option>
+            <option value="Dulac">Dulac</option>
+            <option value="Galliano">Galliano</option>
+            <option value="Golden Meadow">Golden Meadow</option>
+            <option value="Grand Isle">Grand Isle</option>
+            <option value="Houma">Houma</option>
+            <option value="Lafitte">Lafitte</option>
+            <option value="Larose">Larose</option>
+            <option value="Lockport">Lockport</option>
+            <option value="Mathews">Mathews</option>
+            <option value="Montegut">Montegut</option>
+            <option value="Morgan City">Morgan City</option>
+            <option value="New Orleans">New Orleans</option>
+            <option value="Port Fourchon">Port Fourchon</option>
+            <option value="Raceland">Raceland</option>
+            <option value="Thibodaux">Thibodaux</option>
+          </select>
+          <input type="date" id="NewsDatePicker" placeholder="Select Date">
+          <script>
+              const today = new Date().toISOString().split('T')[0];
+              document.getElementById('NewsDatePicker').value = today;
+          </script>
+          <button id="NewsSearchButton">Search</button>
+        </div>
+      </div>
+    </section>
+    <section id="NewsResults">
+      <div id="NewsResultsContainer">
+
+      </div>
+    </section>
+  </main>
+</body>
+</html>

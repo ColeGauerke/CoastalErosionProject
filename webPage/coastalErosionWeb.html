@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coastal Erosion Predictor</title>
+
+  <!-- Leaflet & MapTiler -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/v3.8.0/maptiler-sdk.umd.min.js"></script>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/v3.8.0/maptiler-sdk.css" rel="stylesheet" />
+  <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v4.1.0/leaflet-maptilersdk.umd.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <ul id="NavBar">
+      <li><a href="pages/home.html">Home</a></li>
+      <li><a href="">Map Predictor</a></li>
+      <li><a href="pages/news.html">News</a></li>
+      <li><a href="pages/emergencyResources.html">Emergency Resources</a></li>
+      <li><a href="pages/reporting.html">Report Event</a></li>
+      <li><a href="reportsFeed.html">Community Reports</a></li>
+
+    </ul>
+    <h1>Coastal Erosion Predictor</h1>
+    <p>Analyze and visualize coastal erosion trends with real data. </p>
+    <p1>Created by Huston Peyton, Jack Corson, Behrens Richeson, Cole, and Aidan McNamara</p1>
+  </header>
+
+  <main>
+    <section id="controls">
+      <div class="control-group">
+        <label>Year</label>
+        <select id="year">
+          <option value="2030">2030</option>
+          <option value="2035">2035</option>
+          <option value="2040">2040</option>
+          <option value="2045">2045</option>
+          <option value="2050">2050</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>City:</label>
+        <select id="city">
+          <option value="Bayou Cane">Bayou Cane</option>
+          <option value="Chauvin">Chauvin</option>
+          <option value="Cocodrie">Cocodrie</option>
+          <option value="Cut Off">Cut Off</option>
+          <option value="Dulac">Dulac</option>
+          <option value="Galliano">Galliano</option>
+          <option value="Golden Meadow">Golden Meadow</option>
+          <option value="Grand Isle">Grand Isle</option>
+          <option value="Houma">Houma</option>
+          <option value="Lafitte">Lafitte</option>
+          <option value="Larose">Larose</option>
+          <option value="Lockport">Lockport</option>
+          <option value="Mathews">Mathews</option>
+          <option value="Montegut">Montegut</option>
+          <option value="Morgan City">Morgan City</option>
+          <option value="New Orleans">New Orleans</option>
+          <option value="Port Fourchon">Port Fourchon</option>
+          <option value="Raceland">Raceland</option>
+          <option value="Thibodaux">Thibodaux</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>State:</label>
+        <select id="state">
+          <option value="LA">LA</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Case:</label>
+        <select id="case">
+          <option value="Worst Case">Worst Case</option>
+          <option value="Best Case">Best Case</option>
+        </select>
+      </div>
+    
+      <button id="predictBtn">Predict</button>
+    </section>
+
+    <section id="map-section">
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Coastal Erosion Project</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

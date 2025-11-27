@@ -1,0 +1,6 @@
+@CoastyApi_HostAddress = http://localhost:5073
+
+GET {{CoastyApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
