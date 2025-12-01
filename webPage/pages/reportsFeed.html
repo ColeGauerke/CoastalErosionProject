@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Reports</title>
+
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    .page-wrap { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+    .title { font-size:1.8rem; font-weight:700; margin-bottom:6px; }
+    .subtitle { color:#555; margin-bottom:18px; }
+    .reports-list { display:flex; flex-direction:column; gap:14px; margin-top:10px; }
+    .report-card {
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,.06);
+      padding:14px 16px;
+      border-left:5px solid #0d6efd;
+    }
+    .report-header { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px; }
+    .pill {
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:.8rem;
+      font-weight:600;
+    }
+    .pill-type { background:#eef6ff; color:#0d6efd; }
+    .pill-sev-low { background:#e7f7e9; color:#1b7a2a; }
+    .pill-sev-moderate { background:#fff4e0; color:#ad6a00; }
+    .pill-sev-high { background:#ffe3e3; color:#b00020; }
+    .pill-sev-life { background:#2b0404; color:#ffb3b3; }
+    .report-meta { font-size:.85rem; color:#666; margin-top:4px; }
+    .report-desc { margin-top:8px; }
+    .report-contact { font-size:.8rem; color:#555; margin-top:6px; }
+    .empty-state { margin-top:18px; color:#666; font-style:italic; }
+    .error { color:#b00020; margin-top:10px; }
+    .loading { margin-top:10px; color:#444; }
+    header { background:linear-gradient(135deg,#1f6feb,#3fa3ff); color:#fff; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <ul id="NavBar">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="../coastalErosionWeb.html">Map Predictor</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="emergencyResources.html">Emergency Resources</a></li>
+      <li><a href="reporting.html">Report Event</a></li>
+      <li><a href="reportsFeed.html">Community Reports</a></li>
+    </ul>
+  </header>
+
+  <main class="page-wrap">
+    <h1 class="title">Community Reports</h1>
+    <p class="subtitle">
+      Recent user-submitted reports of flooding, erosion, infrastructure damage, and other coastal hazards.
+    </p>
+
+    <div id="reportsStatus" class="loading">Loading reports…</div>
+    <div id="reportsList" class="reports-list"></div>
+  </main>
+
+  <script>
+    const statusEl = document.getElementById('reportsStatus');
+    const listEl = document.getElementById('reportsList');
+
+    function severityClass(sev) {
+      switch ((sev || '').toLowerCase()) {
+        case 'low': return 'pill-sev-low';
+        case 'moderate': return 'pill-sev-moderate';
+        case 'high': return 'pill-sev-high';
+        case 'life-threatening': return 'pill-sev-life';
+        default: return 'pill-sev-moderate';
+      }
+    }
+
+    function formatDate(d) {
+      try {
+        return new Date(d).toLocaleString();
+      } catch {
+        return d;
+      }
+    }
+
+    async function loadReports() {
+      try {
+        const res = await fetch('http://localhost:5073/api/Coasty/GetReports');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        statusEl.textContent = '';
+
+        if (!data || data.length === 0) {
+          statusEl.innerHTML = '<p class="empty-state">No reports have been submitted yet.</p>';
+          return;
+        }
+
+        listEl.innerHTML = '';
+        data.forEach(r => {
+          const card = document.createElement('article');
+          card.className = 'report-card';
+
+          const sevClass = severityClass(r.severity);
+
+          card.innerHTML = `
+            <div class="report-header">
+              <div>
+                <span class="pill pill-type">${r.eventType || 'Event'}</span>
+                <span class="pill ${sevClass}" style="margin-left:6px;">
+                  ${r.severity || 'Unknown'}
+                </span>
+              </div>
+              <div class="report-meta">
+                <div><strong>Observed:</strong> ${formatDate(r.observedAt)}</div>
+                <div><strong>Location:</strong> ${r.locationText || 'Not specified'}</div>
+              </div>
+            </div>
+            <p class="report-desc">${r.description || ''}</p>
+            ${
+              (r.contactName || r.contactEmail)
+                ? `<div class="report-contact">
+                     Submitted by ${r.contactName || 'anonymous'} ${
+                       r.contactEmail ? `(${r.contactEmail})` : ''
+                  }</div>`
+                : ''
+            }
+          `;
+
+          listEl.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Failed to load reports', err);
+        statusEl.innerHTML = '<p class="error">Could not load reports right now.</p>';
+      }
+    }
+
+    loadReports();
+  </script>
+</body>
+</html>

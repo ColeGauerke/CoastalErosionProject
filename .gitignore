@@ -137,8 +137,12 @@ local.settings.json
 # Application secrets and config with sensitive data
 appsettings.Development.json
 appsettings.Local.json
+appsettings.*.json
+!appsettings.json
 secrets.json
 *.secret
+**/appsettings.*.json
+!**/appsettings.json
 
 # Environment variables
 .env
@@ -266,3 +270,4 @@ dmypy.json
 # Generated output files 
 Data Analysis/output/*
 !Data Analysis/output/.gitkeep
+.fake
