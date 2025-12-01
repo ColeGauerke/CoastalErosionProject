@@ -11,4 +11,7 @@ To run:
   3. Start up a live server from  the home.html file in vscode.
   4. Can be accessed by clicking into the localhost shown in your terminal and adding /swagger to the end of the URL
       -> 'https://localhost:7108/swagger'
+
+### Note on news page:
+This page works best if you search for articles three weeks in the past in prominent cities like New Orleans. Searching for something like "flood" will usually populate the articles returned.
       
