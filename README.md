@@ -14,4 +14,6 @@ To run:
 
 ### Note on news page:
 This page works best if you search for articles three weeks in the past in prominent cities like New Orleans. Searching for something like "flood" will usually populate the articles returned.
-      
+
+### Notes on late commits
+Huston had to push his model to the github for credit reasons and small changes to the readme were added. None of these changes affected or added to the functionality of the project, they were simply for ease of grading and website usage understanding for the graders.
